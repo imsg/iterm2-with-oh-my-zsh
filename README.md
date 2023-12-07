@@ -19,6 +19,17 @@ https://git-scm.com
 
 介于此，本文默认各位同学已经安装了git环境和xcode（command line tools），遇到提示找不到git命令或需要安装command line tool的地方，文中不再赘述了。
 
+### 安装Brew
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+如果遇到无法从github下载的情况，并且你有梯子，可以运行以下命令。
+```bash
+export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
+```
+
 
 ### 下载iTerm2
 
@@ -224,3 +235,18 @@ vi ~/.zshrc
 有同学说补全命令的字体不太清晰，与背景颜色太过相近，其实可以自己调整一下字体颜色。
 
 Preferences -> Profiles -> Colors 中有Foreground是标准字体颜色，ANSI Colors中Bright的第一个是补全的字体颜色。
+
+如果你不想显示你的名字和电脑的名称，在.zshrc文件最后加入以下函数。
+
+```bash
+prompt_context() {}
+```
+
+如果你只想显示你的名字，修改一下这个函数。
+```bash
+prompt_context() {
+  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
+  fi
+}
+```
